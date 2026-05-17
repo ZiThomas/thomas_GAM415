@@ -22,8 +22,29 @@ class Athomas_GAM415Projectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	// SET UP STATIC MESH COMPONENT AND MATERIAL FOR THE BALL!!
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* ballMesh;
+
+	UPROPERTY(EditAnywhere)
+	UMaterial* baseMat;
+	
+	// VARIABLES FOR THE RANDOM COLOR AND FRAME NUMBER FOR THE DECAL!!
+	UPROPERTY()
+	FLinearColor randColor;
+
+	UPROPERTY(EditAnywhere)
+	UMaterialInterface* projMat;
+
+	UPROPERTY()
+	UMaterialInstanceDynamic* dmiMat;
+
 public:
 	Athomas_GAM415Projectile();
+
+	// IMPLEMENT THIS FUNCTION TO SPAWN A DECAL AT THE LOCATION OF THE HIT WITH A RANDOM COLOR AND FRAME NUMBER!!
+protected:
+	virtual void BeginPlay();
 
 	/** called when projectile hits something */
 	UFUNCTION()
