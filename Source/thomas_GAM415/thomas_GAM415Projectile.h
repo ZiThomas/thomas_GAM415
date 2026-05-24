@@ -9,6 +9,9 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 
+// FOWARD DECLARATION TO AVOID CIRCULAR INCLUDES!!
+class UNiagaraSystem;
+
 UCLASS(config=Game)
 class Athomas_GAM415Projectile : public AActor
 {
@@ -38,6 +41,10 @@ class Athomas_GAM415Projectile : public AActor
 
 	UPROPERTY()
 	UMaterialInstanceDynamic* dmiMat;
+
+	// REFERENCE TO THE NIAGARA SYSTEM FOR THE COLOR DECAL!!
+	UPROPERTY(EditAnywhere)
+	UNiagaraSystem* colorP;
 
 public:
 	Athomas_GAM415Projectile();

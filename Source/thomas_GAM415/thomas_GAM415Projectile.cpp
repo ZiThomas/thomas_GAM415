@@ -6,6 +6,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Components/DecalComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 Athomas_GAM415Projectile::Athomas_GAM415Projectile() 
 {
@@ -65,6 +67,16 @@ void Athomas_GAM415Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* Other
 	// SPAWN A DECAL AT THE LOCATION OF THE HIT WITH A RANDOM COLOR AND FRAME NUMBER!! (MAKE SURE TO SET UP THE MATERIAL FOR THIS TO WORK!!)
 	if (OtherActor != nullptr)
 	{
+
+		// CHECKING TO SEE IF THE OTHER ACTOR HAS A PHYSICAL MATERIAL, AND IF IT DOES, SPAWN THE NIAGARA SYSTEM FOR THE COLOR DECAL!!
+		if (colorP)
+		{
+			UNiagaraComponent* particleComp = UNiagaraFunctionLibrary::SpawnSystemAttached(colorP, HitComp, NAME_None, FVector(-20.f, 0.f, 0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
+			particleComp->SetNiagaraVariableLinearColor(FString("RandomColor"), randColor);
+			ballMesh->DestroyComponent();
+			CollisionComp->BodyInstance.SetCollisionProfileName("NoCollision");
+		}
+
 		float frameNum = UKismetMathLibrary::RandomFloatInRange(0.f, 3.f);
 
 		auto Decal = UGameplayStatics::SpawnDecalAtLocation(GetWorld(), baseMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f);
