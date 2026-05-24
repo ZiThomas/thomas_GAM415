@@ -46,12 +46,23 @@ Athomas_GAM415Projectile::Athomas_GAM415Projectile()
 void Athomas_GAM415Projectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 	randColor = FLinearColor(UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), 1.f);
 
-	dmiMat = UMaterialInstanceDynamic::Create(projMat, this);
-	ballMesh->SetMaterial(0, dmiMat);
+	//CHECKING TO SEE IF THE PROJECTILE MATERIAL EXISTS, AND IF IT DOES, CREATE A DYNAMIC MATERIAL INSTANCE FOR IT AND SET THE PROJ COLOR PARAMETER TO THE RANDOM COLOR!!
+	//NOT PART OF ASSIGNMENT, BUT ADDED TO CODE!!
+	if (projMat)
+	{
 
-	dmiMat->SetVectorParameterValue("ProjColor", randColor);
+		dmiMat = UMaterialInstanceDynamic::Create(projMat, this);
+		dmiMat->SetVectorParameterValue("ProjColor", randColor);
+
+		if (ballMesh)
+		{
+			ballMesh->SetMaterial(0, dmiMat);
+		}
+	}
 }
 
 void Athomas_GAM415Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -84,5 +95,7 @@ void Athomas_GAM415Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* Other
 
 		MatInstance->SetVectorParameterValue("Color", randColor);
 		MatInstance->SetScalarParameterValue("Frame", frameNum);
+
+		Destroy();
 	}
 }

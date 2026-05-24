@@ -30,8 +30,8 @@ class Athomas_GAM415Projectile : public AActor
 	UStaticMeshComponent* ballMesh;
 
 	UPROPERTY(EditAnywhere)
-	UMaterial* baseMat;
-	
+	UMaterialInterface* baseMat;
+
 	// VARIABLES FOR THE RANDOM COLOR AND FRAME NUMBER FOR THE DECAL!!
 	UPROPERTY()
 	FLinearColor randColor;
