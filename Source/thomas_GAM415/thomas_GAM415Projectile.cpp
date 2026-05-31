@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include "PerlinProcTerrain.h"
 
 Athomas_GAM415Projectile::Athomas_GAM415Projectile() 
 {
@@ -97,5 +98,13 @@ void Athomas_GAM415Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* Other
 		MatInstance->SetScalarParameterValue("Frame", frameNum);
 
 		Destroy();
+
+		// CHECK TO SEE IF PROJECTILE HIT THE PROCEDURAL TERRAIN, AND IF IT DID, CALL THE FUNCTION TO ALTER THE MESH!!
+		APerlinProcTerrain* procTerrain = Cast<APerlinProcTerrain>(OtherActor);
+
+		if (procTerrain)
+		{
+			procTerrain->AlterMesh(Hit.ImpactPoint);
+		}
 	}
 }
