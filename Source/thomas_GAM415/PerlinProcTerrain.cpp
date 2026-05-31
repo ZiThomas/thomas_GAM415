@@ -52,7 +52,7 @@ void APerlinProcTerrain::AlterMesh(FVector impactPoint)
 
 void APerlinProcTerrain::CreateVertices()
 {
-	// CREATE LOOP TIL X AND Y EQUALT TO XSIZE AND YSIZE!!
+	// CREATE LOOP TIL X AND Y EQUAL TO XSIZE AND YSIZE!!
 	for (int X = 0; X <= XSize; X++)
 	{
 		for (int Y = 0; Y <= YSize; Y++)
@@ -71,18 +71,20 @@ void APerlinProcTerrain::CreateTriangles()
 	// CALCULATING WHICH VERTICES TO CONNECT TO MAKE THE TRIANGLES FOR THE LANDSCAPE!! TWO TRIANGLES PER SQUARE!!
 	int Vertex = 0;
 
-	for (int Y = 0; Y < YSize; Y++)
+	for (int X = 0; X < XSize; X++)
 	{
-		Triangles.Add(Vertex);
-		Triangles.Add(Vertex + 1);
-		Triangles.Add(Vertex + YSize + 1);
-		Triangles.Add(Vertex + 1);
-		Triangles.Add(Vertex + YSize + 2);
-		Triangles.Add(Vertex + YSize + 1);
+		for (int Y = 0; Y < YSize; Y++)
+		{
+			Triangles.Add(Vertex);
+			Triangles.Add(Vertex + 1);
+			Triangles.Add(Vertex + YSize + 1);
+			Triangles.Add(Vertex + 1);
+			Triangles.Add(Vertex + YSize + 2);
+			Triangles.Add(Vertex + YSize + 1);
 
-		Vertex++;
-	}
-	
-	Vertex++;
+			Vertex++;
+		}
+
+	} Vertex++;
 }
 
