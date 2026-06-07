@@ -48,6 +48,11 @@ class Athomas_GAM415Character : public ACharacter
 public:
 	Athomas_GAM415Character();
 
+	// SETTING UP BOOL FOR PORTAL TELEPORTATION!!
+public:
+	UPROPERTY(EditAnywhere)
+	bool isTeleporting;
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
